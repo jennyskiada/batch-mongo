@@ -1,0 +1,44 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+<head>
+    <title>Job Instances</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="col-xs-12">
+            <!--/* Breadcrumb */-->
+            <ol class="breadcrumb">
+                <li><a href="home.html" th:href="@{/}">Home </a></li>
+                <li><a href="jobs.html" th:href="@{/jobs}">Jobs</a></li>
+                <li class="active">Job Instances</li>
+            </ol>
+            <!--/* Main Content */-->
+            <h2 class="page-header">Job Instances <small th:text="|JobName = ${#httpServletRequest.getParameter('jobName')}|">Job Name</small></h2>
+            <p th:if="${#lists.isEmpty(jobInstances)}" th:text="#{messages.no.job.instances}">There Are No JobInstances For The Selected Job.</p>
+            <div th:unless="${#lists.isEmpty(jobInstances)}" class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th class="narrow">Instance Id</th>
+                        <th>Job Name</th>
+                        <th class="narrow text-center">Executions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="jobInstance : ${jobInstances}" >
+                            <td th:text="${jobInstance.id}">Job Instance Id</td>
+                            <td th:text="${jobName}">Job Name</td>
+                            <td class="text-center">
+                                <a href="jobExecutions.html" th:href="@{/jobExecutions(jobName=${jobName},jobInstanceId=${jobInstance.id})}" th:title="'View Executions'">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:replace="fragments/pagination :: pagination(${pager})">Pagination</div>
+        </div>
+    </div>
+</body>
+</html>

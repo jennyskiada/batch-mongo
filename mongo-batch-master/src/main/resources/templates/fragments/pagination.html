@@ -1,0 +1,16 @@
+<div xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:fragment="pagination(pager)">
+    <nav class="pull-right">
+        <ul class="pagination">
+            <th:block th:each="entry : ${pager.elements}">
+                <div th:remove="tag" th:with="label=(
+                    ${#strings.equals(entry.key, 'first')} ? '&lt;&lt;' :
+                        (${#strings.equals(entry.key, 'previous')} ? '&lt;' :
+                            (${#strings.equals(entry.key, 'next')} ? '&gt;' :
+                                (${#strings.equals(entry.key, 'last')} ? '&gt;&gt;' : ${entry.key}))))">
+                    <li th:if="${#strings.equals(entry.value[1], 'current')}" class="disabled"><span th:text="${label}">Label</span></li>
+                    <li th:unless="${#strings.equals(entry.value[1], 'current')}"><a th:href="@{${entry.value[0]}}" th:text="${label}">Label</a></li>
+                </div>
+            </th:block>
+        </ul>
+    </nav>
+</div>

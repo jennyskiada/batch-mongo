@@ -1,0 +1,54 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+    <head>
+        <title>Job Executions</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="col-xs-12">
+                <!--/* Breadcrumb */-->
+                <ol class="breadcrumb">
+                    <li><a href="home.html" th:href="@{/}">Home</a></li>
+                    <li><a href="jobs.html" th:href="@{/jobs}">Jobs</a></li>
+                    <li><a href="jobInstances.html" th:href="@{/jobInstances(jobName=${jobName})}">Job Instances</a></li>
+                    <li class="active">Job Executions</li>
+                </ol>
+                <!--/* Main Content */-->
+                <h2 class="page-header">Job Executions <small th:text="|Job Name = ${#httpServletRequest.getParameter('jobName')}, JobInstanceId = ${#httpServletRequest.getParameter('jobInstanceId')}|">Id</small></h2>
+                <p th:unless="${#lists.size(jobExecutions)>0}" th:text="#{messages.no.job.executions}">There Are No JobExecutions For The Selected JobInstanceId.</p>
+                <div th:if="${#lists.size(jobExecutions)>0}" class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Status</th>
+                                <th class="text-center">Steps</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="jobExecution : ${jobExecutions}">
+                                <td th:text="${jobExecution.id}">Id</td>
+                                <td th:text="${#dates.format(jobExecution.startTime, 'yyyy-MM-dd HH:mm')}">Start Time</td>
+                                <td th:text="${#dates.format(jobExecution.endTime, 'yyyy-MM-dd HH:mm')}">End Time</td>
+                                <td>
+                                    <span th:text="${jobExecution.status}">Status</span>
+                                    <span th:unless="${#strings.isEmpty(jobExecution.exitStatus.exitDescription)}">
+                                        <span class="glyphicon glyphicon-chevron-down show-error" aria-hidden="true"></span>
+                                        <span class="hidden-error" th:utext="${jobExecution.exitStatus.exitDescription}"></span>
+                                    </span>
+                                </td>
+                                <td class="narrow text-center">
+                                    <a href="stepExecutions.html" th:href="@{/stepExecutions(jobName=${jobName},jobExecutionId=${jobExecution.id},jobInstanceId=${#httpServletRequest.getParameter('jobInstanceId')})}" th:title="'View Details'">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

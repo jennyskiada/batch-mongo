@@ -1,0 +1,63 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/main">
+    <head>
+        <title>Step Executions</title>
+    </head>
+    <body>
+    <div layout:fragment="content">
+        <div class="col-xs-12">
+            <!--/* Breadcrumb */-->
+            <ol class="breadcrumb">
+                <li><a href="home.html" th:href="@{/}">Home</a></li>
+                <li><a href="jobs.html" th:href="@{/jobs}">Jobs</a></li>
+                <li><a href="jobInstances.html" th:href="@{/jobInstances(jobName=${jobName})}">Job Instances</a></li>
+                <li><a href="jobExecutions.html" th:href="@{/jobExecutions(jobName=${jobName},jobInstanceId=${#httpServletRequest.getParameter('jobInstanceId')})}">Job Executions</a></li>
+                <li class="active">Step Executions</li>
+            </ol>
+            <!--/* Main Content */-->
+            <h2 class="page-header">Step Executions <small th:text="|JobExecutionId = ${#httpServletRequest.getParameter('jobExecutionId')}, JobInstanceId = ${#httpServletRequest.getParameter('jobInstanceId')}|">Id</small></h2>
+            <p th:unless="${#lists.size(stepExecutions)>0}">There Are No StepExecutions For The Selected JobExecutionId.</p>
+            <div th:if="${#lists.size(stepExecutions)>0}" class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th class="text-center">Read Count</th>
+                            <th class="text-center">Filter Count</th>
+                            <th class="text-center">Write Count</th>
+                            <th class="text-center">Read Skip Count</th>
+                            <th class="text-center">Write Skip Count</th>
+                            <th class="text-center">Process Skip Count</th>
+                            <th class="text-center">Commit Count</th>
+                            <th class="text-center">Rollback Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="stepExecution : ${stepExecutions}">
+                            <td th:text="${stepExecution.id}">Id</td>
+                            <td th:text="${stepExecution.stepName}">Name</td>
+                            <td>
+                                <span th:text="${stepExecution.status}">Status</span>
+                                <span th:unless="${#strings.isEmpty(stepExecution.exitStatus.exitDescription)}">
+                                    <span class="glyphicon glyphicon-chevron-down show-error" aria-hidden="true"></span>
+                                    <span class="hidden-error" th:utext="${stepExecution.exitStatus.exitDescription}"></span>
+                                </span>
+                            </td>
+                            <td class="text-center" th:text="${stepExecution.readCount}">ReadCount</td>
+                            <td class="text-center" th:text="${stepExecution.filterCount}">FilterCount</td>
+                            <td class="text-center" th:text="${stepExecution.writeCount}">WriteCount</td>
+                            <td class="text-center" th:text="${stepExecution.readSkipCount}">ReadSkipCount</td>
+                            <td class="text-center" th:text="${stepExecution.writeSkipCount}">WriteSkipCount</td>
+                            <td class="text-center" th:text="${stepExecution.processSkipCount}">ProcessSkipCount</td>
+                            <td class="text-center" th:text="${stepExecution.commitCount}">CommitCount</td>
+                            <td class="text-center" th:text="${stepExecution.rollbackCount}">RollbackCount</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
