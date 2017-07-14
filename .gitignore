@@ -1,15 +1,8 @@
-#Temporary Files
 *~
-
-#IDE
+.iml
 .classpath
 .project
 .settings/
 .idea/
-
-#Maven
 target/
-
-#Javadocs
 doc/
-
