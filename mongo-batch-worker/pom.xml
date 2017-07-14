@@ -7,5 +7,29 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>mongo-batch-worker</artifactId>
-    <!-- TODO Dependencies -->
+    <!-- Dependencies -->
+    <dependencies>
+        <!-- Spring Boot Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
+    <!-- Plugins -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- Docker Plugin -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <configuration>
+                    <imageName>mongo-batch-worker</imageName>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
