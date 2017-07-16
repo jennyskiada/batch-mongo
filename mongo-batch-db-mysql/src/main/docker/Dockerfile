@@ -1,9 +1,7 @@
 #
 # 1. clean package docker:build
-# 2. docker run --name db-mysql -e MYSQL_DATABASE=demo -e MYSQL_USER=username -e MYSQL_PASSWORD=password -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -d mysql:5.7
-# 3. docker run -p 9001:9001 --name worker --link db-mysql:mysql -d mongo-batch-worker:latest
-# 4. http://192.168.99.100:9001
-# 5. docker exec -it db-mysql mysql -uroot -p [For Shell Access]
+# 2. docker run --name db-mysql -e MYSQL_DATABASE=worker -e MYSQL_USER=username -e MYSQL_PASSWORD=password -e MYSQL_ROOT_PASSWORD=password -p 3306:3306 -d mysql:5.7
+# 3. docker exec -it db-mysql mysql -uroot -p [For Shell Access]
 #
 FROM oraclelinux:7-slim
 

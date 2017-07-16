@@ -1,7 +1,7 @@
 #
 # 1. clean package docker:build
-# 2. docker run -p 9001:9001 --name=worker mongo-batch-worker
-# 3. http://192.168.99.100:9001
+# 2. docker run -p 9001:9001 --name worker --link db-mysql:mysql -d mongo-batch-worker:latest
+# 3. http://192.168.99.100:9001 [Web Interface]
 #
 FROM frolvlad/alpine-oraclejdk8:slim
 EXPOSE 9000

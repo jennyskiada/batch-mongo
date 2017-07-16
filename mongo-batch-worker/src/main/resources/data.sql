@@ -1,0 +1,1 @@
+INSERT INTO testing (id, testing) VALUES(1, now()) ON DUPLICATE KEY UPDATE testing = now();
