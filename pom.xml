@@ -12,7 +12,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <docker.cert.path>C:\Users\Nikos\.docker\machine\machines\default</docker.cert.path>
         <docker.host>https://192.168.99.100:2376</docker.host>
-        <docker.maven.plugin.version>0.4.13</docker.maven.plugin.version>
+        <docker.maven.plugin.version>1.0.0</docker.maven.plugin.version>
         <java.version>1.8</java.version>
         <spring.boot.version>1.5.4.RELEASE</spring.boot.version>
         <mysql.connector.version>5.1.42</mysql.connector.version>
@@ -56,6 +56,11 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring.boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jdbc</artifactId>
                 <version>${spring.boot.version}</version>
             </dependency>
             <!-- Miscellaneous -->
@@ -126,5 +131,6 @@
     <modules>
         <module>mongo-batch-master</module>
         <module>mongo-batch-worker</module>
+        <module>mongo-batch-db-mysql</module>
     </modules>
 </project>
