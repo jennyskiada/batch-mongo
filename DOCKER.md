@@ -14,4 +14,4 @@ eval "$(docker-machine env default)"
 
 ## Remove Dangling Images + Dangling Volumes
 docker rmi $(docker images -f dangling=true -q)<br />
-docker volume rm 'docker volume ls -q -f dangling=true'
+docker volume rm \`docker volume ls -q -f dangling=true\`
