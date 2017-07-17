@@ -1,7 +1,9 @@
 #
-# 1. clean package docker:build
-# 2. docker run -p 9001:9001 --name worker --link db-mysql:mysql -d mongo-batch-worker:latest
-# 3. http://192.168.99.100:9001 [Web Interface]
+# 1. docker run --name logging --volume /applicationLogs alpine:latest
+# 2. clean package docker:build
+# 3. docker run -p 9001:9001 --name worker --volumes-from logging --link db-mysql:mysql -d mongo-batch-worker:latest
+# 4. http://192.168.99.100:9001 [Web Interface]
+# 5. docker exec -it worker /bin/sh [For Shell Access]
 #
 FROM frolvlad/alpine-oraclejdk8:slim
 EXPOSE 9000
